@@ -1,0 +1,22 @@
+{
+  "name": "board",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "calendar": "^0.1.0",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "google-url": "0.0.4",
+    "masonry-layout": "^4.1.1",
+    "method-override": "^2.3.6",
+    "mongoose": "^4.10.5",
+    "react-datepicker": "^0.40.0"
+  }
+}

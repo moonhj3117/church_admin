@@ -1,0 +1,49 @@
+body {
+  font-family: "Aller", "sans-serif";  /* just a custom font */
+}
+a:-webkit-any-link {
+    text-decoration: none;	/* ignoring default link settings */
+}
+.gallery_ul
+{
+  list-style-type: none;	/* hiding the bullets from ul */
+  text-align:center;
+  padding-left: 0px;
+}
+.fade {
+   opacity: 0.8;		/* sets default view to a 80% opacity */
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
+.fade:hover {
+      opacity: 1;	/* sets default view to a 100% opacity when on hover state */
+}
+.img-wrapper {
+  width: 320px;
+  height: 240px;
+  border: 0.1em solid #ccc;
+  border-radius: 0.4em;
+  background-color: #f3f3f3;
+  box-shadow: 0.1em 0.1em 0.5em -0.2em #777;
+  margin: 1em 1em;
+}
+img {
+  border-radius: 0.4em 0.4em 0em 0em;		/* radius should be the same as the img-wrapper */
+}
+.gallery-wrapper ul li{
+  display: inline-block;		/* sit wrappers in rows, not column block */
+  text-align: center;
+}
+h1 {
+  padding-left: 14em;
+}
+h4 {							/* style the photos titles */
+  text-align: center;
+  font-size: 1em;
+  margin: 0;
+  padding: 0.5em 2em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: black;
+}

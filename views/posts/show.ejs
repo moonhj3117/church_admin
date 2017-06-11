@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var clipboardSupport = true;
+      var clipboard = null;
+      try {
+        $.browser.chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase());
+        var version = $.browser.version;
+        version = new Number(version.substring(0, version.indexOf(".")));
+        //모바일 접속인지 확인
+        if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/Android/i))) {
+          //클립보드 복사기능이 될경우 (크롬 42+)
+          if ($.browser.chrome == true && version >= 42) {
+            clipboardSupport = true;
+          } else {
+            clipboardSupport = false;
+          }
+        }
+      } catch(e) {
+      }
+      if (clipboardSupport) {
+        clipboard = new Clipboard('#btnCopyClip');
+        $("#btnCopyClip").show();
+        $("#btnCopyClip_hidden").hide();
+      } else {
+        clipboard = new Clipboard('.clipboard_hidden');
+        $("#btnCopyClip").hide();
+        $("#btnCopyClip_hidden").show();
+      }
+
+      clipboard.on('success', function(e) {
+        alert("주소가 복사되었습니다.\n\n원하는 곳에 붙여넣기 해주세요.");
+      });
+
+      clipboard.on('error', function(e) {
+        //alert("접속중인 기기및 브라우저에서는\n클립보드 복사를 지원하지 않습니다.\nURL을 길게 누르면 복사하실 수 있습니다.");
+        alert("공유H버튼을 다시 눌러주세요.");
+        clipboardSupport = false;
+        clipboard = new Clipboard('.clipboard_hidden');
+        $("#btnCopyClip").hide();
+        $("#btnCopyClip_hidden").show();
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <% include ../partials/nav %>
+
+    <div class="wrap">
+      <div class="container post post-show">
+        <% include ./partials/none_header %>
+
+        <div class="buttons">
+          <a class="btn btn-default" href="javascript:history.back()">Back</a>
+          <a class="btn btn-default" href="/posts/<%= sermon._id %>/edit">Edit</a>
+          <form action="/posts/<%= sermon._id %>?_method=delete" method="post">
+            <a class="btn btn-default" href="#" onclick="confirm('Do you want to delete this?')?this.parentElement.submit():null;">Delete</a>
+          </form>
+        </div>
+
+        <div class="contentBox">
+          <h3 class="contentBoxTop"><%= sermon.Sermontitle %></h3>
+          <div class="row">
+            <div class="col-sm-4 col-sm-push-8">
+              <div class="post-info">
+                <div>
+                  <b>설교 날짜</b> : <%= sermon.Sermon_date %>
+                  <br/><br/>
+                  <a id="clipURL" style="border-image: none;" onclick="return false;" href="<%= url %>"><%= url %></a>
+                  <button id="btnCopyClip" class="clipboard btn btn-default btn-sm" data-clipboard-target="#clipURL" data-clipboard-action="copy">★공유★</button>
+                  <button id="btnCopyClip_hidden" class="clipboard_hidden btn btn-default btn-sm" data-clipboard-text="<%= url %>" style="display:none;">★공유H★</button>
+                </div>
+              </div> <!-- post-info end -->
+            </div> <!-- col end-->
+            <div class="col-sm-8 col-sm-pull-4">
+              <div class="post-body">
+                <b>설교 본문</b> : <%= sermon.Sermonbody %> <br/>
+                <audio controls autoplay style="width:100%;">
+                  <source src="<%= sermon.file_path %>" type="audio/mpeg">
+                </audio>
+              </div>
+            </div> <!-- col end-->
+          </div> <!-- row end -->
+        </div> <!-- post-container end -->
+
+      </div> <!-- container end -->
+      <footer>
+        <% include ../partials/footer %>
+      </footer>
+    </div>
+  </body>
+</html>

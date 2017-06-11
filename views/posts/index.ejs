@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <script type="text/javascript">
+      var view_idx = 0;
+    </script>
+  </head>
+  <body>
+    <% include ../partials/nav %>
+    <div class="wrap">
+      <div class="container post post-index">
+        <% include partials/header %>
+        <div class="buttons">
+          <a class="btn btn-default" href="/posts/new">New</a>
+        </div>
+        <table class="table table-striped posts">
+          <thead>
+            <tr>
+              <th class="title">설교제목</th>
+              <th class="date">예배날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(sermons == null || sermons.length == 0){ %>
+              <tr>
+                <td class="noData" colspan=100> 등록된 글이 없습니다.~ </td>
+              </tr>
+            <% } %>
+            <% sermons.forEach(function(sermon) { %>
+              <tr>
+                <td class="title">
+                  <a href="/posts/<%= sermon._id %>?page=<%= page %>&id=<%= id %>"><div>제목 : <%= sermon.Sermontitle %><br/>설교본문 : <%=sermon.Sermonbody %></div></a>
+                </td>
+                <td class="date">
+                  <%= sermon.Sermon_date %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <ul class="pagination_2">
+          <% var offset = 2; %>
+          <% for(i=1;i<=maxPage;i++){ %>
+            <% if(i<=offset || i>maxPage-offset || (i>=page-(offset-1) && i<=page+(offset-1))){ %>
+              <% if(i != page){ %>
+                <li>[<a href="/posts/index/<%= id %>/?page=<%= i %>"> <%= i %> </a>]</li>
+              <% } else { %>
+                <li>[ <b><%= i %></b> ]</li>
+              <% } %>
+            <% } else if(i == offset+1 || i == maxPage-offset){ %>
+                <li>...</li>
+            <% } %>
+          <%}%>
+        </ul>
+      </div>  <!-- container end -->
+      <footer>
+        <% include ../partials/footer %>
+      </footer>
+    </div>
+  </body>
+</html>

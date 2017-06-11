@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/head %>
+    <script type="text/javascript">
+    function onLoad(){
+      $("#select_div").val("<%= sermon.Sermon_type %>");
+    }
+    </script>
+  </head>
+  <body onload="javascript:onLoad();">
+    <% include ../../partials/nav %>
+      <div class="wrap">
+      <div class="container post post-new">
+        <% include ../partials/none_header %>
+
+        <div class="buttons">
+          <a class="btn btn-default" href="javascript:history.back()">Back</a>
+        </div>
+
+        <form class="post-form form-horizontal" action="/posts/<%= sermon._id %>?_method=put" method="post">
+          <div class="contentBox">
+            <h3 class="contentBoxTop">설교 수정</h3>
+            <fieldset>
+              <div class="form-group">
+                <label for="title" class="col-sm-3 control-label">설교 제목</label>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" id="title" name="title" value="<%= sermon.Sermontitle %>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="title" class="col-sm-3 control-label">예배 등록</label>
+                <div class="col-sm-9" >
+                  <select name="selectpicker" id="select_div">
+                     <option value="1">11시 예배</option>
+                     <option value="2">오후 예배</option>
+                     <option value="3">수요 예배</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="body" class="col-sm-3 control-label">설교 본문</label>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" id="body" name="body" value="<%= sermon.Sermonbody %>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="date" class="col-sm-3 control-label">설교 날짜</label>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" name="sermon_date" id="sermon_date" value="<%= sermon.Sermon_date %>"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="upload" class="col-sm-3 control-label">설교 경로</label>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" name="file_path" id="file_path" value="<%= sermon.file_path %>"/>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="buttons">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </form>
+
+      </div>  <!-- container end -->
+      <footer>
+        <% include ../../partials/footer %>
+      </footer>
+    </div>
+  </body>
+</html>
